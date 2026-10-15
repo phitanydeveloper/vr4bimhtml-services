@@ -84,6 +84,114 @@ button:disabled {
   animation-play-state: paused;
 }
 
+/* ─── Entrance & scroll-reveal animations ─────────────────────────────────── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Page-load entrance (hero content). Stagger with style="--delay: 200ms". */
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.animate-hero-zoom {
+  animation: hero-zoom 9s ease-out both;
+}
+
+/* Scroll reveal: add data-reveal (="up" | "left" | "right" | "zoom") to an
+   element; useScrollReveal adds .is-visible when it enters the viewport.
+   Stagger with style="--reveal-delay: 120ms". Uses `backwards` fill so the
+   element's own hover transforms keep working once the animation ends. */
+.reveal-enabled [data-reveal]:not(.is-visible) {
+  opacity: 0;
+}
+
+.reveal-enabled [data-reveal].is-visible {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-enabled [data-reveal="left"].is-visible {
+  animation-name: fade-left;
+}
+
+.reveal-enabled [data-reveal="right"].is-visible {
+  animation-name: fade-right;
+}
+
+.reveal-enabled [data-reveal="zoom"].is-visible {
+  animation-name: zoom-in;
+}
+
 @media (prefers-reduced-motion: reduce) {
   button:not(:disabled) {
     transition: none;
@@ -96,5 +204,19 @@ button:disabled {
 
   .client-logo-track {
     animation: none;
+  }
+
+  .animate-fade-up,
+  .animate-hero-zoom,
+  .reveal-enabled [data-reveal].is-visible {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
   }
 }

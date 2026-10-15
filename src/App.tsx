@@ -1,5 +1,6 @@
 import { useState } from "react"
 import ServiceDetailPage from "./ServiceDetailPage"
+import { useScrollReveal } from "./useScrollReveal"
 
 // ─── Brand / shared ──────────────────────────────────────────────────────────
 
@@ -1320,30 +1321,37 @@ const FILTER_IDS: Record<string, number[]> = {
 
 function ServiceCard({
   service,
+  index,
   onClick,
 }: {
   service: Service
+  index: number
   onClick: () => void
 }) {
   return (
     <article
-      className="group bg-white border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+      data-reveal
+      style={{ "--reveal-delay": `${(index % 3) * 110}ms` } as React.CSSProperties}
+      className="group relative bg-white border border-gray-100 overflow-hidden hover:shadow-xl hover:border-gray-200 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
       onClick={onClick}
     >
+      <div className="absolute bottom-0 left-0 z-10 h-0.5 w-full bg-[#d81f26] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500" />
       <div className="relative overflow-hidden aspect-[16/9] bg-gray-100">
         <img
           src={service.listImage}
           alt={service.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <div className="p-6">
         <div className="flex items-start gap-4 mb-4">
-          <div className="shrink-0 text-[#d81f26] mt-0.5">{service.icon}</div>
+          <div className="shrink-0 text-[#d81f26] mt-0.5 group-hover:scale-115 group-hover:-rotate-6 transition-transform duration-300">
+            {service.icon}
+          </div>
           <h3
-            className="text-[17px] font-semibold text-[#1a1a1a] leading-snug"
+            className="text-[17px] font-semibold text-[#1a1a1a] leading-snug group-hover:text-[#d81f26] transition-colors duration-300"
             style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
           >
             {service.title}
@@ -1365,7 +1373,7 @@ function ServiceCard({
         </div>
         <button
           onClick={onClick}
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#d81f26] hover:gap-2.5 transition-all"
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#d81f26] group-hover:gap-3 transition-all"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         >
           Learn More
@@ -1402,25 +1410,35 @@ function ListingPage({ onSelect }: { onSelect: (s: Service) => void }) {
             backgroundSize: "24px 24px",
           }}
         />
-        <div className="absolute left-0 bottom-0 w-1 h-full bg-[#d81f26]" />
+        <div className="absolute left-0 bottom-0 w-1 h-full bg-[#d81f26] origin-bottom animate-[grow-y_1s_cubic-bezier(0.22,1,0.36,1)_backwards]" />
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <p
-                className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#d81f26] mb-3"
+                className="animate-fade-up text-[11px] font-semibold tracking-[0.2em] uppercase text-[#d81f26] mb-3"
                 style={{ fontFamily: "Inter, system-ui, sans-serif" }}
               >
                 What We Do
               </p>
               <h1
-                className="text-[42px] md:text-[56px] font-bold text-[#1a1a1a] leading-none tracking-tight"
-                style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
+                className="animate-fade-up text-[42px] md:text-[56px] font-bold text-[#1a1a1a] leading-none tracking-tight"
+                style={
+                  {
+                    fontFamily: "Barlow, system-ui, sans-serif",
+                    "--delay": "120ms",
+                  } as React.CSSProperties
+                }
               >
                 Our Services
               </h1>
               <p
-                className="mt-4 text-[16px] text-[#666] max-w-xl leading-relaxed"
-                style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+                className="animate-fade-up mt-4 text-[16px] text-[#666] max-w-xl leading-relaxed"
+                style={
+                  {
+                    fontFamily: "Inter, system-ui, sans-serif",
+                    "--delay": "240ms",
+                  } as React.CSSProperties
+                }
               >
                 Supporting all-round construction projects right from vision to
                 reality with expertise and efficiency.
@@ -1431,10 +1449,14 @@ function ListingPage({ onSelect }: { onSelect: (s: Service) => void }) {
                 ["200+", "Projects Delivered"],
                 ["12+", "Years Experience"],
                 ["40+", "BIM Specialists"],
-              ].map(([val, lbl]) => (
-                <div key={lbl} className="text-center">
+              ].map(([val, lbl], i) => (
+                <div
+                  key={lbl}
+                  className="group animate-fade-up text-center cursor-default"
+                  style={{ "--delay": `${360 + i * 120}ms` } as React.CSSProperties}
+                >
                   <div
-                    className="text-[28px] font-bold text-[#1a1a1a]"
+                    className="text-[28px] font-bold text-[#1a1a1a] group-hover:text-[#d81f26] group-hover:scale-110 transition-all duration-300"
                     style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
                   >
                     {val}
@@ -1475,8 +1497,13 @@ function ListingPage({ onSelect }: { onSelect: (s: Service) => void }) {
       {/* Grid */}
       <section className="max-w-7xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {visible.map((s) => (
-            <ServiceCard key={s.id} service={s} onClick={() => onSelect(s)} />
+          {visible.map((s, i) => (
+            <ServiceCard
+              key={s.id}
+              service={s}
+              index={i}
+              onClick={() => onSelect(s)}
+            />
           ))}
         </div>
       </section>
@@ -2093,6 +2120,7 @@ function DetailPage({
 
 export default function App() {
   const [selectedService, setSelectedService] = useState<Service | null>(null)
+  useScrollReveal()
 
   const handleSelect = (s: Service) => {
     setSelectedService(s)

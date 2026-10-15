@@ -357,17 +357,17 @@ function FaqItem({ q, a }: { q: string, a: string }) {
   return (
     <div className="border-b border-gray-100 last:border-0">
       <button
-        className="w-full flex items-center justify-between py-5 text-left gap-4"
+        className="group w-full flex items-center justify-between py-5 text-left gap-4"
         onClick={() => setOpen(!open)}
       >
         <span
-          className="text-[15px] font-semibold text-[#1a1a1a]"
+          className="text-[15px] font-semibold text-[#1a1a1a] group-hover:text-brand-red transition-colors"
           style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
         >
           {q}
         </span>
         <span
-          className="shrink-0 w-7 h-7 rounded-full border flex items-center justify-center transition-colors"
+          className="shrink-0 w-7 h-7 rounded-full border flex items-center justify-center transition-colors group-hover:border-brand-red"
           style={{
             borderColor: open ? RED : "#d1d5db",
             background: open ? RED : "transparent",
@@ -393,7 +393,7 @@ function FaqItem({ q, a }: { q: string, a: string }) {
       </button>
       {open && (
         <p
-          className="pb-5 text-[14px] text-gray-500 leading-relaxed pr-10"
+          className="animate-fade-up pb-5 text-[14px] text-gray-500 leading-relaxed pr-10"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         >
           {a}
@@ -413,7 +413,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
         <img
           src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&h=800&fit=crop&auto=format"
           alt="VR4BIM BIM Services"
-          className="w-full h-full object-cover opacity-40"
+          className="animate-hero-zoom w-full h-full object-cover opacity-40"
         />
         <div
           className="absolute inset-0"
@@ -453,20 +453,30 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-6">
             <div
-              className="inline-block px-2.5 py-0.5 text-[10px] font-semibold tracking-widest uppercase text-white mb-4"
-              style={{ background: RED }}
+              className="animate-fade-up inline-block px-2.5 py-0.5 text-[10px] font-semibold tracking-widest uppercase text-white mb-4"
+              style={{ background: RED, "--delay": "150ms" } as React.CSSProperties}
             >
               What We Do
             </div>
             <h1
-              className="text-[42px] md:text-[60px] font-bold text-white leading-none tracking-tight max-w-2xl"
-              style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
+              className="animate-fade-up text-[42px] md:text-[60px] font-bold text-white leading-none tracking-tight max-w-2xl"
+              style={
+                {
+                  fontFamily: "Barlow, system-ui, sans-serif",
+                  "--delay": "300ms",
+                } as React.CSSProperties
+              }
             >
               BIM Services
             </h1>
             <p
-              className="mt-4 text-[16px] text-white/70 max-w-xl leading-relaxed"
-              style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+              className="animate-fade-up mt-4 text-[16px] text-white/70 max-w-xl leading-relaxed"
+              style={
+                {
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  "--delay": "450ms",
+                } as React.CSSProperties
+              }
             >
               Our Advanced BIM Services for Modern Construction Projects
             </p>
@@ -478,10 +488,15 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       <div className="bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-3 md:grid-cols-6 divide-x divide-white/10">
-            {HERO_STATS.map((s) => (
-              <div key={s.label} className="py-6 px-4 text-center">
+            {HERO_STATS.map((s, i) => (
+              <div
+                key={s.label}
+                data-reveal
+                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
+                className="group py-6 px-4 text-center cursor-default hover:bg-white/5 transition-colors duration-300"
+              >
                 <div
-                  className="text-[26px] font-bold leading-none"
+                  className="text-[26px] font-bold leading-none group-hover:scale-115 transition-transform duration-300"
                   style={{
                     fontFamily: "Barlow, system-ui, sans-serif",
                     color: RED,
@@ -490,7 +505,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   {s.value}
                 </div>
                 <div
-                  className="text-[10px] tracking-wide uppercase text-white/55 mt-1"
+                  className="text-[10px] tracking-wide uppercase text-white/55 mt-1 group-hover:text-white/90 transition-colors duration-300"
                   style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                 >
                   {s.label}
@@ -504,7 +519,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       {/* ── Intro ────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          <div>
+          <div data-reveal="left">
             <SectionLabel>About Our Services</SectionLabel>
             <h2
               className="text-[30px] font-bold text-[#1a1a1a] leading-snug mb-5"
@@ -536,8 +551,8 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
               utilization of Building Information Modeling.
             </p>
           </div>
-          <div>
-            <div className="bg-gray-50 border border-gray-100 p-8">
+          <div data-reveal="right">
+            <div className="bg-gray-50 border border-gray-100 p-8 hover:shadow-lg hover:bg-white transition-all duration-300">
               <h3
                 className="text-[18px] font-bold text-[#1a1a1a] mb-5"
                 style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
@@ -557,10 +572,13 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   "Quantity Take-offs",
                   "Shop Drawings",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-2">
+                  <div
+                    key={item}
+                    className="group flex items-center gap-2 hover:translate-x-1 transition-transform duration-200"
+                  >
                     <CheckIcon />
                     <span
-                      className="text-[13px] text-gray-600"
+                      className="text-[13px] text-gray-600 group-hover:text-brand-dark transition-colors"
                       style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                     >
                       {item}
@@ -584,7 +602,8 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
           >
             <div className="max-w-7xl mx-auto px-6">
               <div
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-5 md:p-8 bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] ${
+                data-reveal
+                className={`group/card grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-5 md:p-8 bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-gray-200 transition-[box-shadow,border-color] duration-500 ${
                   !isEven ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
@@ -593,13 +612,13 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   <img
                     src={section.image}
                     alt={section.imageAlt}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover/card:scale-108 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
                   {/* Title overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-6 py-5">
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 group-hover/card:bg-black/70 px-6 py-5 transition-colors duration-500">
                     <h2
-                      className="text-[22px] md:text-[26px] font-bold text-white leading-snug border-l-4 pl-4"
+                      className="text-[22px] md:text-[26px] font-bold text-white leading-snug border-l-4 pl-4 group-hover/card:pl-6 transition-[padding] duration-500"
                       style={{
                         borderColor: RED,
                         fontFamily: "Barlow, system-ui, sans-serif",
@@ -627,14 +646,20 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                       >
                         Core Deliverables
                       </p>
-                      <div className="flex-1 h-0.5" style={{ background: RED }} />
+                      <div
+                        className="flex-1 h-0.5 origin-left scale-x-50 group-hover/card:scale-x-100 transition-transform duration-700"
+                        style={{ background: RED }}
+                      />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4">
                       {section.items.map((item) => (
-                        <div key={item} className="flex items-start gap-2">
+                        <div
+                          key={item}
+                          className="group flex items-start gap-2 hover:translate-x-1 transition-transform duration-200"
+                        >
                           <CheckIcon />
                           <span
-                            className="text-[13px] text-gray-600 leading-snug"
+                            className="text-[13px] text-gray-600 leading-snug group-hover:text-brand-dark transition-colors"
                             style={{
                               fontFamily: "Inter, system-ui, sans-serif",
                             }}
@@ -647,7 +672,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   </div>
 
                   <button
-                    className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 text-[12px] font-semibold text-white transition-opacity hover:opacity-90"
+                    className="mt-6 inline-flex items-center gap-2 hover:gap-3 px-5 py-2.5 text-[12px] font-semibold text-white hover:shadow-[0_8px_20px_rgba(216,31,38,0.35)]"
                     style={{
                       background: RED,
                       fontFamily: "Inter, system-ui, sans-serif",
@@ -790,7 +815,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       </section> */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 gap-6 items-end mb-10">
+          <div data-reveal className="grid grid-cols-1 gap-6 items-end mb-10">
             <div className="max-w-xl">
               <SectionLabel>Industries</SectionLabel>
               <h2
@@ -811,13 +836,15 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SECTORS.map((sector) => (
+            {SECTORS.map((sector, idx) => (
               <article
                 key={sector.label}
-                className="group flex items-start gap-5 p-6 bg-white border border-gray-100 rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-300"
+                data-reveal="zoom"
+                style={{ "--reveal-delay": `${(idx % 3) * 100}ms` } as React.CSSProperties}
+                className="group flex items-start gap-5 p-6 bg-white border border-gray-100 rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_14px_36px_rgba(0,0,0,0.12)] hover:border-red-100 hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div
-                  className="w-14 h-14 shrink-0 rounded-full flex items-center justify-center text-white shadow-[0_6px_16px_rgba(216,31,38,0.35)] group-hover:scale-105 transition-transform duration-300"
+                  className="w-14 h-14 shrink-0 rounded-full flex items-center justify-center text-white shadow-[0_6px_16px_rgba(216,31,38,0.35)] group-hover:scale-110 group-hover:rotate-[8deg] transition-transform duration-300"
                   style={{
                     background: `linear-gradient(135deg, ${RED} 0%, #8f1418 100%)`,
                   }}
@@ -837,7 +864,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
 
                 <div className="min-w-0">
                   <h3
-                    className="text-[20px] font-bold text-brand-dark leading-snug"
+                    className="text-[20px] font-bold text-brand-dark leading-snug group-hover:text-brand-red transition-colors duration-300"
                     style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
                   >
                     {sector.label}
@@ -858,7 +885,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       {/* ── Why Choose ───────────────────────────────────────────────────── */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-10">
+          <div data-reveal className="text-center mb-10">
             <SectionLabel>Why VR4BIM</SectionLabel>
             <h2
               className="text-[30px] font-bold text-[#1a1a1a]"
@@ -869,13 +896,16 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {WHY_CHOOSE.map((item) => (
+            {WHY_CHOOSE.map((item, idx) => (
               <div
                 key={item.num}
-                className="group p-6 border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all"
+                data-reveal
+                style={{ "--reveal-delay": `${(idx % 3) * 110}ms` } as React.CSSProperties}
+                className="group relative overflow-hidden p-6 bg-white border border-gray-100 hover:border-gray-200 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
               >
+                <div className="absolute top-0 left-0 h-0.5 w-full bg-brand-red scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500" />
                 <div
-                  className="text-[36px] font-bold leading-none mb-4 opacity-15 group-hover:opacity-30 transition-opacity"
+                  className="text-[36px] font-bold leading-none mb-4 opacity-15 group-hover:opacity-60 group-hover:translate-x-1 transition-all duration-300"
                   style={{
                     fontFamily: "Barlow, system-ui, sans-serif",
                     color: RED,
@@ -905,7 +935,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       <section className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-12 items-start">
-            <div>
+            <div data-reveal="left">
               <SectionLabel>Technology Stack</SectionLabel>
               <h2
                 className="text-[28px] font-bold text-[#1a1a1a] leading-snug mb-4"
@@ -924,15 +954,17 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {SOFTWARE.map((sw) => (
+              {SOFTWARE.map((sw, idx) => (
                 <div
                   key={sw}
-                  className="flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 hover:border-gray-400 transition-colors"
+                  data-reveal="zoom"
+                  style={{ "--reveal-delay": `${idx * 50}ms` } as React.CSSProperties}
+                  className="group flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 hover:border-brand-red hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <img
                     src={technologyLogoPlaceholder}
                     alt={`${sw} logo placeholder`}
-                    className="w-10 h-10 rounded-sm shrink-0"
+                    className="w-10 h-10 rounded-sm shrink-0 group-hover:scale-110 transition-transform duration-300"
                   />
                   <span
                     className="text-[13px] font-medium text-[#1a1a1a]"
@@ -953,7 +985,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
         className="py-14 bg-white border-t border-gray-100 overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8">
+          <div data-reveal className="text-center mb-8">
             <SectionLabel>Trusted Partnerships</SectionLabel>
             <h2
               className="text-[26px] font-bold text-[#1a1a1a]"
@@ -974,12 +1006,12 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   {CLIENTS.map((client) => (
                     <div
                       key={client}
-                      className="w-52 h-24 flex items-center justify-center gap-3 bg-gray-50 border border-gray-100 hover:border-gray-300 transition-colors"
+                      className="w-52 h-24 flex items-center justify-center gap-3 group bg-gray-50 border border-gray-100 hover:border-gray-300 hover:bg-white hover:shadow-md transition-all duration-300"
                     >
                       <img
                         src={clientLogoPlaceholder}
                         alt={duplicate ? "" : `${client} logo placeholder`}
-                        className="w-11 h-11 shrink-0"
+                        className="w-11 h-11 shrink-0 grayscale group-hover:grayscale-0 transition-[filter] duration-300"
                       />
                       <span
                         className="text-[13px] font-semibold tracking-wide text-gray-500 uppercase"
@@ -1002,7 +1034,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div data-reveal="left">
               <SectionLabel>Get Started</SectionLabel>
               <h2
                 className="text-[30px] font-bold text-[#1a1a1a] leading-snug mb-4"
@@ -1049,7 +1081,10 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
               </div>
             </div>
 
-            <div className="bg-gray-50 border border-gray-100 p-8">
+            <div
+              data-reveal="right"
+              className="bg-gray-50 border border-gray-100 p-8 hover:shadow-lg transition-shadow duration-300"
+            >
               <h3
                 className="text-[17px] font-bold text-[#1a1a1a] mb-6"
                 style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
@@ -1061,30 +1096,30 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   <input
                     type="text"
                     placeholder="First Name"
-                    className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none focus:border-gray-400 transition-colors"
+                    className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none hover:border-gray-300 focus:border-brand-red focus:ring-2 focus:ring-red-100 transition-all"
                     style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                   />
                   <input
                     type="text"
                     placeholder="Last Name"
-                    className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none focus:border-gray-400 transition-colors"
+                    className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none hover:border-gray-300 focus:border-brand-red focus:ring-2 focus:ring-red-100 transition-all"
                     style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                   />
                 </div>
                 <input
                   type="email"
                   placeholder="Email Address"
-                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none focus:border-gray-400 transition-colors"
+                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none hover:border-gray-300 focus:border-brand-red focus:ring-2 focus:ring-red-100 transition-all"
                   style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                 />
                 <input
                   type="text"
                   placeholder="Company / Project Name"
-                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none focus:border-gray-400 transition-colors"
+                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none hover:border-gray-300 focus:border-brand-red focus:ring-2 focus:ring-red-100 transition-all"
                   style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                 />
                 <select
-                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none focus:border-gray-400 transition-colors text-gray-500"
+                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none hover:border-gray-300 focus:border-brand-red focus:ring-2 focus:ring-red-100 transition-all text-gray-500"
                   style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                 >
                   <option value="">Select BIM Service</option>
@@ -1095,7 +1130,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                 <textarea
                   rows={3}
                   placeholder="Brief project description"
-                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none focus:border-gray-400 transition-colors resize-none"
+                  className="bg-white border border-gray-200 text-[13px] px-3 py-2.5 outline-none hover:border-gray-300 focus:border-brand-red focus:ring-2 focus:ring-red-100 transition-all resize-none"
                   style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                 />
                 <button
@@ -1116,7 +1151,7 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
       <section className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-10">
+          <div data-reveal className="text-center mb-10">
             <SectionLabel>FAQ</SectionLabel>
             <h2
               className="text-[30px] font-bold text-[#1a1a1a]"
@@ -1125,7 +1160,10 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
               BIM Services — Frequently Asked Questions
             </h2>
           </div>
-          <div className="bg-white border border-gray-100 px-6 divide-y divide-gray-100">
+          <div
+            data-reveal
+            className="bg-white border border-gray-100 px-6 divide-y divide-gray-100"
+          >
             {FAQS.map((faq) => (
               <FaqItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
