@@ -1,0 +1,10 @@
+{
+  "description": "Displays a comprehensive service listing for VR4BIM, integrating consistent branding elements to enhance user navigation and engagement.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
