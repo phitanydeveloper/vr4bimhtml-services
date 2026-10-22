@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import ArchitecturalBimPage from "./ArchitecturalBimPage"
 import ServiceDetailPage from "./ServiceDetailPage"
 import { useScrollReveal } from "./useScrollReveal"
 
@@ -2118,19 +2119,49 @@ function DetailPage({
 
 // ─── Root app ─────────────────────────────────────────────────────────────────
 
+// Slug-based routes, resolved relative to Vite's base URL so deployed
+// sub-path builds keep working.
+const ROUTES = {
+  listing: "",
+  bim: "bim-services",
+  architectural: "architectural-bim-services",
+} as const
+
+type Route = keyof typeof ROUTES
+
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "")
+
+function routeFromPath(pathname: string): Route {
+  const slug = pathname
+    .slice(pathname.startsWith(BASE) ? BASE.length : 0)
+    .replace(/^\/+|\/+$/g, "")
+  const match = (Object.keys(ROUTES) as Route[]).find((r) => ROUTES[r] === slug)
+  return match ?? "listing"
+}
+
+function useRoute() {
+  const [route, setRoute] = useState<Route>(() =>
+    routeFromPath(window.location.pathname),
+  )
+
+  useEffect(() => {
+    const onPopState = () => setRoute(routeFromPath(window.location.pathname))
+    window.addEventListener("popstate", onPopState)
+    return () => window.removeEventListener("popstate", onPopState)
+  }, [])
+
+  const navigate = (to: Route) => {
+    window.history.pushState(null, "", `${BASE}/${ROUTES[to]}`)
+    setRoute(to)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  return [route, navigate] as const
+}
+
 export default function App() {
-  const [selectedService, setSelectedService] = useState<Service | null>(null)
+  const [route, navigate] = useRoute()
   useScrollReveal()
-
-  const handleSelect = (s: Service) => {
-    setSelectedService(s)
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
-
-  const handleBack = () => {
-    setSelectedService(null)
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
 
   return (
     <div
@@ -2138,13 +2169,21 @@ export default function App() {
       style={{ fontFamily: "Inter, system-ui, sans-serif" }}
     >
       <Header
-        onLogoClick={handleBack}
-        activePage={selectedService ? "detail" : "listing"}
+        onLogoClick={() => navigate("listing")}
+        activePage={route === "listing" ? "listing" : "detail"}
       />
-      {selectedService ? (
-        <ServiceDetailPage onBack={handleBack} />
+      {route === "architectural" ? (
+        <ArchitecturalBimPage
+          onBackToServices={() => navigate("listing")}
+          onBackToBim={() => navigate("bim")}
+        />
+      ) : route === "bim" ? (
+        <ServiceDetailPage
+          onBack={() => navigate("listing")}
+          onOpenArchitectural={() => navigate("architectural")}
+        />
       ) : (
-        <ListingPage onSelect={handleSelect} />
+        <ListingPage onSelect={() => navigate("bim")} />
       )}
       <CtaBanner />
       <Footer />

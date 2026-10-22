@@ -326,7 +326,7 @@ const FAQS = [
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function CheckIcon() {
+export function CheckIcon() {
   return (
     <svg className="w-4 h-4 shrink-0 mt-0.5" viewBox="0 0 16 16" fill="none">
       <circle cx="8" cy="8" r="7" fill={RED} />
@@ -341,7 +341,7 @@ function CheckIcon() {
   )
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p
       className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2"
@@ -352,7 +352,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   )
 }
 
-function FaqItem({ q, a }: { q: string, a: string }) {
+export function FaqItem({ q, a }: { q: string, a: string }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="border-b border-gray-100 last:border-0">
@@ -405,7 +405,13 @@ function FaqItem({ q, a }: { q: string, a: string }) {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
-export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
+export default function ServiceDetailPage({
+  onBack,
+  onOpenArchitectural,
+}: {
+  onBack: () => void
+  onOpenArchitectural: () => void
+}) {
   return (
     <main className="flex-1 bg-white">
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
@@ -672,6 +678,11 @@ export default function ServiceDetailPage({ onBack }: { onBack: () => void }) {
                   </div>
 
                   <button
+                    onClick={
+                      section.id === "architecture"
+                        ? onOpenArchitectural
+                        : undefined
+                    }
                     className="mt-6 inline-flex items-center gap-2 hover:gap-3 px-5 py-2.5 text-[12px] font-semibold text-white hover:shadow-[0_8px_20px_rgba(216,31,38,0.35)]"
                     style={{
                       background: RED,
