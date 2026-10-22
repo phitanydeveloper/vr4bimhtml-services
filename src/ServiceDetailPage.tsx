@@ -677,13 +677,21 @@ export default function ServiceDetailPage({
                     </div>
                   </div>
 
-                  <button
-                    onClick={
+                  <a
+                    href={
                       section.id === "architecture"
-                        ? onOpenArchitectural
+                        ? `${import.meta.env.BASE_URL}architectural-bim-services`
                         : undefined
                     }
-                    className="mt-6 inline-flex items-center gap-2 hover:gap-3 px-5 py-2.5 text-[12px] font-semibold text-white hover:shadow-[0_8px_20px_rgba(216,31,38,0.35)]"
+                    onClick={(e) => {
+                      if (section.id !== "architecture") return
+                      // Plain left-click navigates in-app; modifier clicks open a new tab.
+                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0)
+                        return
+                      e.preventDefault()
+                      onOpenArchitectural()
+                    }}
+                    className="mt-6 inline-flex items-center gap-2 hover:gap-3 px-5 py-2.5 text-[12px] font-semibold text-white cursor-pointer hover:shadow-[0_8px_20px_rgba(216,31,38,0.35)]"
                     style={{
                       background: RED,
                       fontFamily: "Inter, system-ui, sans-serif",
@@ -703,7 +711,7 @@ export default function ServiceDetailPage({
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
