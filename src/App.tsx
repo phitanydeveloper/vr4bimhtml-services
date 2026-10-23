@@ -1205,8 +1205,8 @@ function Footer() {
         <div className="flex flex-col lg:flex-row gap-8 justify-between lg:items-center">
           <Logo dark large />
           <div className="flex flex-wrap items-center gap-3 md:gap-5">
-            <button className="flex items-center gap-3 h-14 md:h-[74px] px-6 md:px-8 border border-white/25 rounded-full text-[15px] md:text-[18px] font-medium text-white hover:border-white hover:bg-white/5 transition-colors">
-              <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 16 16" fill="none">
+            <button className="flex items-center gap-3 h-12 md:h-[60px] px-5 md:px-7 border border-white/25 rounded-full text-[14px] md:text-[16px] font-medium text-white hover:border-white hover:bg-white/5 transition-colors">
+              <svg className="w-5 h-5" viewBox="0 0 16 16" fill="none">
                 <rect
                   x="1"
                   y="3"
@@ -1230,9 +1230,9 @@ function Footer() {
                 key={social.label}
                 href="#"
                 aria-label={social.label}
-                className="w-14 h-14 md:w-[74px] md:h-[74px] rounded-full border border-white/25 flex items-center justify-center text-white hover:border-white hover:bg-white/5 transition-colors"
+                className="w-12 h-12 md:w-[60px] md:h-[60px] rounded-full border border-white/25 flex items-center justify-center text-white hover:border-white hover:bg-white/5 transition-colors"
               >
-                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d={social.path} fillRule="evenodd" clipRule="evenodd" />
                 </svg>
               </a>
@@ -1248,14 +1248,14 @@ function Footer() {
             practice.
           </p>
           <div className="flex items-end gap-12 sm:gap-24 lg:gap-28 lg:pt-2">
-            <div className="grid grid-cols-2 gap-x-16 sm:gap-x-24 lg:gap-x-40 gap-y-6 self-start">
+            <div className="grid grid-cols-2 gap-x-12 sm:gap-x-20 lg:gap-x-28 gap-y-5 self-start">
               {[FOOTER_COL1, FOOTER_COL2].map((col, ci) => (
-                <ul key={ci} className="flex flex-col gap-6">
+                <ul key={ci} className="flex flex-col gap-5">
                   {col.map((link) => (
                     <li key={link}>
                       <a
                         href="#"
-                        className="text-[15px] md:text-[16px] font-medium text-white hover:text-[#e5343f] transition-colors whitespace-nowrap"
+                        className="text-[14px] font-medium text-white hover:text-[#e5343f] transition-colors whitespace-nowrap"
                       >
                         {link}
                       </a>
@@ -1267,9 +1267,9 @@ function Footer() {
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               aria-label="Back to top"
-              className="hidden sm:flex shrink-0 w-[74px] h-[74px] rounded-full border border-white/40 items-center justify-center text-white hover:border-white hover:bg-white/5 transition-colors"
+              className="hidden sm:flex shrink-0 w-[60px] h-[60px] rounded-full border border-white/40 items-center justify-center text-white hover:border-white hover:bg-white/5 transition-colors"
             >
-              <svg className="w-5 h-5" viewBox="0 0 16 16" fill="none">
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M8 13V3M4.5 6.5L8 3L11.5 6.5"
                   stroke="currentColor"
