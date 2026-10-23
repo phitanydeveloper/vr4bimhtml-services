@@ -1,5 +1,10 @@
 import { useState } from "react"
-import clientLogoPlaceholder from "./assets/client-logo-placeholder.svg"
+import client1 from "./assets/clients/client1.png"
+import client2 from "./assets/clients/client2.png"
+import client3 from "./assets/clients/client3.png"
+import client4 from "./assets/clients/client4.png"
+import client5 from "./assets/clients/client5.png"
+import client6 from "./assets/clients/client6.png"
 import technologyLogoPlaceholder from "./assets/technology-logo-placeholder.svg"
 
 const RED = "#d81f26"
@@ -291,14 +296,12 @@ const SOFTWARE = [
 ]
 
 const CLIENTS = [
-  "Client 01",
-  "Client 02",
-  "Client 03",
-  "Client 04",
-  "Client 05",
-  "Client 06",
-  "Client 07",
-  "Client 08",
+  { name: "OBMI", logo: client1 },
+  { name: "Aedas", logo: client2 },
+  { name: "WSP", logo: client3 },
+  { name: "Jacobs", logo: client4 },
+  { name: "Arup", logo: client5 },
+  { name: "AtkinsRéalis", logo: client6 },
 ]
 
 const FAQS = [
@@ -1024,20 +1027,14 @@ export default function ServiceDetailPage({
                 >
                   {CLIENTS.map((client) => (
                     <div
-                      key={client}
-                      className="w-52 h-24 flex items-center justify-center gap-3 group bg-gray-50 border border-gray-100 hover:border-gray-300 hover:bg-white hover:shadow-md transition-all duration-300"
+                      key={client.name}
+                      className="w-52 h-24 px-6 flex items-center justify-center group bg-white border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-300"
                     >
                       <img
-                        src={clientLogoPlaceholder}
-                        alt={duplicate ? "" : `${client} logo placeholder`}
-                        className="w-11 h-11 shrink-0 grayscale group-hover:grayscale-0 transition-[filter] duration-300"
+                        src={client.logo}
+                        alt={duplicate ? "" : `${client.name} logo`}
+                        className="max-h-12 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-[filter,opacity] duration-300"
                       />
-                      <span
-                        className="text-[13px] font-semibold tracking-wide text-gray-500 uppercase"
-                        style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-                      >
-                        {client}
-                      </span>
                     </div>
                   ))}
                 </div>
