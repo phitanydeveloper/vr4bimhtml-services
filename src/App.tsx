@@ -29,6 +29,21 @@ const FOOTER_COL2 = [
   "Testimonials",
 ]
 
+const SOCIAL_LINKS = [
+  {
+    label: "Facebook",
+    path: "M12 2C6.48 2 2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99C18.34 21.13 22 16.99 22 12c0-5.52-4.48-10-10-10z",
+  },
+  {
+    label: "Instagram",
+    path: "M7.8 2h8.4A5.8 5.8 0 0122 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8A5.8 5.8 0 012 16.2V7.8A5.8 5.8 0 017.8 2zm0 2A3.8 3.8 0 004 7.8v8.4A3.8 3.8 0 007.8 20h8.4a3.8 3.8 0 003.8-3.8V7.8A3.8 3.8 0 0016.2 4H7.8zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.25-3.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z",
+  },
+  {
+    label: "YouTube",
+    path: "M21.58 7.19a2.5 2.5 0 00-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42a2.5 2.5 0 00-1.76 1.77C2 8.76 2 12 2 12s0 3.24.42 4.81a2.5 2.5 0 001.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 001.76-1.77C22 15.24 22 12 22 12s0-3.24-.42-4.81zM10 15V9l5.2 3L10 15z",
+  },
+]
+
 // ─── Service data ─────────────────────────────────────────────────────────────
 
 export interface Service {
@@ -1062,12 +1077,18 @@ const SERVICES: Service[] = [
 
 // ─── Shared components ────────────────────────────────────────────────────────
 
-function Logo({ dark = false }: { dark?: boolean }) {
+function Logo({
+  dark = false,
+  large = false,
+}: {
+  dark?: boolean
+  large?: boolean
+}) {
   return (
-    <div className="flex flex-col leading-none">
+    <div className={`flex flex-col leading-none ${large ? "gap-1.5" : ""}`}>
       <div className="flex items-start gap-0.5">
         <span
-          className="text-[22px] font-extrabold tracking-tight"
+          className={`${large ? "text-[36px]" : "text-[22px]"} font-extrabold tracking-tight`}
           style={{
             fontFamily: "Barlow, system-ui, sans-serif",
             color: dark ? "#ffffff" : DARK,
@@ -1075,12 +1096,15 @@ function Logo({ dark = false }: { dark?: boolean }) {
         >
           VR4BIM
         </span>
-        <span className="text-[10px] font-bold mt-0.5" style={{ color: RED }}>
+        <span
+          className={`${large ? "text-[14px] mt-1" : "text-[10px] mt-0.5"} font-bold`}
+          style={{ color: RED }}
+        >
           ✦
         </span>
       </div>
       <span
-        className="text-[8px] tracking-widest uppercase"
+        className={`${large ? "text-[10px]" : "text-[8px]"} tracking-widest uppercase`}
         style={{
           fontFamily: "Inter, system-ui, sans-serif",
           color: dark ? "rgba(255,255,255,0.45)" : "#888",
@@ -1171,28 +1195,18 @@ function Header({
 
 function Footer() {
   return (
-    <footer id="contact" className="bg-[#1a1a1a] text-white pt-16 pb-8">
+    <footer
+      id="contact"
+      className="bg-[#1f232b] text-white pt-16 md:pt-24 pb-10"
+      style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+    >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-0 justify-between items-start mb-12">
-          <div className="max-w-xs">
-            <Logo dark />
-            <p
-              className="mt-6 text-[26px] font-light leading-snug text-white"
-              style={{ fontFamily: "Barlow, system-ui, sans-serif" }}
-            >
-              Design and Engineering Digital Solutions for a{" "}
-              <span className="font-semibold" style={{ color: RED }}>
-                responsible construction
-              </span>{" "}
-              practice.
-            </p>
-          </div>
-          <div className="flex flex-col items-start lg:items-end gap-4">
-            <button
-              className="flex items-center gap-2 px-5 py-2.5 border border-white/30 rounded-full text-[13px] font-medium text-white hover:border-white transition-colors"
-              style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-            >
-              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+        {/* Top row: logo + newsletter / socials */}
+        <div className="flex flex-col lg:flex-row gap-8 justify-between lg:items-center">
+          <Logo dark large />
+          <div className="flex flex-wrap items-center gap-3 md:gap-5">
+            <button className="flex items-center gap-3 h-14 md:h-[74px] px-6 md:px-8 border border-white/25 rounded-full text-[15px] md:text-[18px] font-medium text-white hover:border-white hover:bg-white/5 transition-colors">
+              <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 16 16" fill="none">
                 <rect
                   x="1"
                   y="3"
@@ -1211,66 +1225,70 @@ function Footer() {
               </svg>
               Subscribe to our newsletter
             </button>
-            <div className="flex gap-2">
-              {[
-                "M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z",
-                "M16 8a6 6 0 01-6 6 6 6 0 01-6-6 6 6 0 016-6 6 6 0 016 6zm-6-4a4 4 0 100 8 4 4 0 000-8zm4.5-1.5a1 1 0 110 2 1 1 0 010-2z",
-                "M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z",
-              ].map((path, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-white hover:border-white hover:bg-white/10 transition-colors"
-                >
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                  >
-                    <path d={path} />
-                  </svg>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-white/10 mb-8" />
-        <div className="flex flex-col sm:flex-row gap-10 sm:gap-0 justify-between">
-          <div className="flex gap-20">
-            {[FOOTER_COL1, FOOTER_COL2].map((col, ci) => (
-              <ul key={ci} className="flex flex-col gap-3">
-                {col.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-[13px] text-white/60 hover:text-white transition-colors"
-                      style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+            {SOCIAL_LINKS.map((social) => (
+              <a
+                key={social.label}
+                href="#"
+                aria-label={social.label}
+                className="w-14 h-14 md:w-[74px] md:h-[74px] rounded-full border border-white/25 flex items-center justify-center text-white hover:border-white hover:bg-white/5 transition-colors"
+              >
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path d={social.path} fillRule="evenodd" clipRule="evenodd" />
+                </svg>
+              </a>
             ))}
           </div>
-          <div className="flex items-end">
+        </div>
+
+        {/* Middle row: tagline + links + back to top */}
+        <div className="flex flex-col lg:flex-row gap-12 justify-between mt-16 lg:mt-20 pb-16 lg:pb-20">
+          <p className="max-w-[520px] text-[28px] md:text-[36px] font-normal leading-[1.3] text-white">
+            Design and Engineering Digital Solutions for a{" "}
+            <span style={{ color: "#e5343f" }}>responsible construction</span>{" "}
+            practice.
+          </p>
+          <div className="flex items-end gap-12 sm:gap-24 lg:gap-28 lg:pt-2">
+            <div className="grid grid-cols-2 gap-x-16 sm:gap-x-24 lg:gap-x-40 gap-y-6 self-start">
+              {[FOOTER_COL1, FOOTER_COL2].map((col, ci) => (
+                <ul key={ci} className="flex flex-col gap-6">
+                  {col.map((link) => (
+                    <li key={link}>
+                      <a
+                        href="#"
+                        className="text-[15px] md:text-[16px] font-medium text-white hover:text-[#e5343f] transition-colors whitespace-nowrap"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:border-white hover:bg-white/10 transition-colors"
+              aria-label="Back to top"
+              className="hidden sm:flex shrink-0 w-[74px] h-[74px] rounded-full border border-white/40 items-center justify-center text-white hover:border-white hover:bg-white/5 transition-colors"
             >
-              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+              <svg className="w-5 h-5" viewBox="0 0 16 16" fill="none">
                 <path
-                  d="M8 12V4M4 8L8 4L12 8"
+                  d="M8 13V3M4.5 6.5L8 3L11.5 6.5"
                   stroke="currentColor"
-                  strokeWidth="1.5"
+                  strokeWidth="1.2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
             </button>
           </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/20 pt-12">
+          <p className="text-[14px] md:text-[16px] text-white/75">
+            © VR4BIM {new Date().getFullYear()}. All Rights Reserved
+            <span className="mx-2">|</span>
+            Powered By Phitany, Web Designing Company Kerala
+          </p>
         </div>
       </div>
     </footer>
@@ -2187,6 +2205,13 @@ export default function App() {
       )}
       <CtaBanner />
       <Footer />
+      <a
+        href="#contact"
+        className="fixed right-0 top-1/2 z-40 -translate-y-1/2 flex items-center justify-center w-12 py-5 rounded-r-lg bg-[#e5143a] text-white text-[16px] font-bold shadow-lg hover:bg-[#c8102f] transition-colors [writing-mode:vertical-rl] rotate-180"
+        style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+      >
+        Get a Quote
+      </a>
     </div>
   )
 }
