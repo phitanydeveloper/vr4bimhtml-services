@@ -655,7 +655,7 @@ export default function ArchitecturalBimPage({
                 className="group flex flex-col items-center text-center gap-4 p-6 bg-white border border-gray-100 rounded-2xl shadow-[0_6px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_14px_36px_rgba(0,0,0,0.12)] hover:border-red-100 hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div
-                  className="w-14 h-14 shrink-0 rounded-full flex items-center justify-center text-white shadow-[0_6px_16px_rgba(216,31,38,0.35)] group-hover:scale-110 group-hover:shadow-[0_10px_24px_rgba(216,31,38,0.5)] transition-[transform,box-shadow] duration-300"
+                  className="w-14 h-14 shrink-0 rounded-full flex items-center justify-center text-white shadow-[0_6px_16px_rgba(216,31,38,0.35)]"
                   style={{
                     background: `linear-gradient(135deg, ${RED} 0%, #8f1418 100%)`,
                   }}
