@@ -5,8 +5,6 @@ const RED = "#d81f26"
 const DISPLAY = { fontFamily: "Barlow, system-ui, sans-serif" }
 const BODY = { fontFamily: "Inter, system-ui, sans-serif" }
 
-const img = (id: string, w = 900, h = 640) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&auto=format`
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
@@ -82,71 +80,31 @@ const SOFTWARE = [
   "Bluebeam",
 ]
 
-const ENGINEERING = [
-  {
-    title: "Structural Engineering",
-    body: "Design and analysis of structural systems.",
-  },
-  {
-    title: "Steel Frame Engineering",
-    body: "Layouts and modelling of structural steel members.",
-  },
-  {
-    title: "Reinforced Concrete Design",
-    body: "Design of structural steel members, reinforcement and reinforced concrete detailing including shop drawings.",
-  },
-  {
-    title: "Facade Work",
-    body: "Development and coordination of facades and their systems.",
-  },
-  {
-    title: "Cladding Design",
-    body: "Layouts for the cladding system including panels and support systems.",
-  },
-  {
-    title: "Infrastructure BIM Assistance",
-    body: "Digital design and modeling of infrastructure elements.",
-  },
-  {
-    title: "MEP BIM Services",
-    body: "Designing and modeling of mechanical, electrical and plumbing engineering systems.",
-  },
-]
+// Rich-text content as it comes from the HTML editor.
+const ENGINEERING_HTML = `
+<ul>
+  <li><strong>Structural Engineering:</strong> Design and analysis of structural systems.</li>
+  <li><strong>Steel Frame Engineering:</strong> Layouts and modelling of structural steel members.</li>
+  <li><strong>Reinforced Concrete Design:</strong> Design of structural steel members, reinforcement and reinforced concrete detailing including shop drawings.</li>
+  <li><strong>Facade Work:</strong> Development and coordination of facades and their systems.</li>
+  <li><strong>Cladding Design:</strong> Layouts for the cladding system including panels and support systems.</li>
+  <li><strong>Infrastructure BIM Assistance:</strong> Digital design and modeling of infrastructure elements.</li>
+  <li><strong>MEP BIM Services:</strong> Designing and modeling of mechanical, electrical and plumbing engineering systems.</li>
+</ul>
+`
 
-const DESIGN = [
-  {
-    title: "Architecture",
-    body: "Architectural design ideas, buildings' organisation, planning spaces.",
-    image: img("1487958449943-2429e8be8625"),
-  },
-  {
-    title: "Facade Design",
-    body: "The design ideas concerning exterior of buildings.",
-    image: img("1503387762-592deb58ef4e"),
-  },
-  {
-    title: "Landscape Design",
-    body: "Planning outdoor places and sites.",
-  },
-  {
-    title: "Furniture Design",
-    body: "Furniture developing ideas, layouting and custom furniture design.",
-  },
-  {
-    title: "Interior Design",
-    body: "The design ideas of interiors, planning space, and layout of furniture.",
-    image: img("1617802690992-15d93263d3a9"),
-  },
-  {
-    title: "Planning",
-    body: "Planning of the site.",
-  },
-  {
-    title: "Energy Analysis",
-    body: "The analysis of the energy performance of buildings and the choice of the best idea for the design.",
-  },
-]
-
+// Rich-text content as it comes from the HTML editor.
+const DESIGN_HTML = `
+<ul>
+  <li><strong>The design of architecture:</strong> architectural design ideas, buildings' organisation, planning spaces.</li>
+  <li><strong>Facade design:</strong> the design ideas concerning exterior of buildings.</li>
+  <li><strong>The design of landscape:</strong> planning outdoor places and sites.</li>
+  <li><strong>Furniture design:</strong> furniture developing ideas, layouting and custom furniture design.</li>
+  <li><strong>Interior design:</strong> the design ideas of interiors, planning space, and layout of furniture.</li>
+  <li><strong>Planning:</strong> planning of the site.</li>
+  <li><strong>Analysis of energy:</strong> the analysis of the energy performance of buildings and the choice of the best idea for the design.</li>
+</ul>
+`
 const VDC = [
   "2D-to-3D Modeling",
   "BIM Coordination",
@@ -287,7 +245,7 @@ export default function AllServicesPage({
             <span className="text-brand-dark">Our Services</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
+          <div className="max-w-3xl">
             <div>
               <div
                 className="animate-fade-up flex items-center gap-3 mb-5"
@@ -337,53 +295,6 @@ export default function AllServicesPage({
                 >
                   Explore Services
                 </a>
-              </div>
-            </div>
-
-            <div
-              className="animate-fade-up grid grid-cols-2 grid-rows-2 gap-3 h-[340px] md:h-[420px]"
-              style={{ "--delay": "300ms" } as React.CSSProperties}
-            >
-              <div className="row-span-2 overflow-hidden">
-                <img
-                  src={img("1487958449943-2429e8be8625", 600, 900)}
-                  alt="Modern building facade"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div className="overflow-hidden">
-                <img
-                  src={img("1503387762-592deb58ef4e", 600, 420)}
-                  alt="Architectural drawings and BIM model"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div
-                className="relative overflow-hidden flex flex-col justify-end p-5 text-white"
-                style={{ background: RED }}
-              >
-                <div
-                  className="text-[44px] font-bold leading-none"
-                  style={DISPLAY}
-                >
-                  6
-                </div>
-                <div
-                  className="text-[12px] uppercase tracking-widest text-white/80 mt-1"
-                  style={BODY}
-                >
-                  Service Disciplines
-                </div>
-                <svg
-                  aria-hidden
-                  viewBox="0 0 48 48"
-                  className="absolute -top-2 -right-2 w-24 h-24 text-white/15"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M24 4L42 14V34L24 44L6 34V14Z M24 4V24M6 14L24 24L42 14M24 24V44" />
-                </svg>
               </div>
             </div>
           </div>
@@ -461,53 +372,36 @@ export default function AllServicesPage({
               and LOD.
             </SectionHeading>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-800 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
               {BIM_DISCIPLINES.map((d, i) => (
                 <article
                   key={d.code}
                   data-reveal
                   style={{ "--reveal-delay": `${(i % 2) * 100}ms` } as React.CSSProperties}
-                  className="group relative bg-[#1a1a1a] p-7 md:p-8 overflow-hidden hover:bg-[#222] transition-colors duration-300"
+                  className="group flex flex-col p-7 bg-white border border-gray-200 rounded-xl hover:border-transparent hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
                 >
-                  <span
-                    aria-hidden
-                    className="absolute -right-2 -bottom-5 text-[96px] font-extrabold leading-none text-white/[0.04] group-hover:text-white/[0.08] transition-colors duration-500 select-none"
+                  <h3
+                    className="text-[19px] font-bold text-brand-dark leading-snug mb-2"
                     style={DISPLAY}
                   >
-                    {d.code}
-                  </span>
-                  <div className="relative">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span
-                        className="inline-flex items-center justify-center min-w-10 h-10 px-2 text-[13px] font-bold text-white"
-                        style={{ ...DISPLAY, background: RED }}
-                      >
-                        {d.code}
-                      </span>
-                      <h3
-                        className="text-[19px] font-bold text-white leading-snug"
-                        style={DISPLAY}
-                      >
-                        {d.title}
-                      </h3>
-                    </div>
-                    <p
-                      className="text-[13px] text-white/65 leading-relaxed"
+                    {d.title}
+                  </h3>
+                  <p
+                    className="text-[13.5px] text-gray-500 leading-relaxed"
+                    style={BODY}
+                  >
+                    {d.body}
+                  </p>
+                  {d.linked && (
+                    <button
+                      onClick={onOpenArchitectural}
+                      className="mt-auto pt-5 self-start inline-flex items-center gap-2 text-[13px] font-semibold text-brand-red hover:gap-3"
                       style={BODY}
                     >
-                      {d.body}
-                    </p>
-                    {d.linked && (
-                      <button
-                        onClick={onOpenArchitectural}
-                        className="mt-5 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-wider text-white hover:gap-3"
-                        style={BODY}
-                      >
-                        View service
-                        <Arrow />
-                      </button>
-                    )}
-                  </div>
+                      View service
+                      <Arrow />
+                    </button>
+                  )}
                 </article>
               ))}
             </div>
@@ -588,72 +482,28 @@ export default function AllServicesPage({
             </div>
           </section>
 
-          {/* ── Engineering (spec-sheet rows) ───────────────────────────── */}
+          {/* ── Engineering (rich text) ─────────────────────────────────── */}
           <section
             id="engineering"
             className="py-16 border-t border-gray-100 scroll-mt-20"
           >
-            <div className="grid grid-cols-1 xl:grid-cols-[1fr_1.2fr] gap-10">
-              <div>
-                <SectionHeading
-                  index="02"
-                  label="Engineering Services"
-                  title="Technical Support for Building"
-                >
-                  We offer engineering services for the design and coordination
-                  of structural systems, building envelopes and their
-                  engineering systems. The scope is predetermined based on the
-                  design stage of the project as well as technical
-                  requirements.
-                </SectionHeading>
-                <div
-                  data-reveal
-                  className="hidden xl:block mt-8 aspect-[4/3] overflow-hidden"
-                >
-                  <img
-                    src={img("1485083269755-a7b559a4fe5e", 700, 520)}
-                    alt="Structural engineering on site"
-                    loading="lazy"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-[filter] duration-700"
-                  />
-                </div>
-              </div>
-
-              <ol className="border-t-2 border-brand-dark">
-                {ENGINEERING.map((e, i) => (
-                  <li
-                    key={e.title}
-                    data-reveal
-                    style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
-                    className="group grid grid-cols-[44px_1fr] gap-4 py-5 border-b border-gray-200 hover:bg-gray-50 transition-colors px-2"
-                  >
-                    <span
-                      className="text-[13px] font-bold text-gray-300 group-hover:text-brand-red transition-colors pt-0.5"
-                      style={DISPLAY}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3
-                        className="text-[16px] font-bold text-brand-dark"
-                        style={DISPLAY}
-                      >
-                        {e.title}
-                      </h3>
-                      <p
-                        className="text-[13px] text-gray-500 leading-relaxed mt-1"
-                        style={BODY}
-                      >
-                        {e.body}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            <SectionHeading
+              index="02"
+              label="Engineering Services"
+              title="Technical Support for Building"
+            >
+              We offer engineering services for the design and coordination of
+              structural systems, building envelopes and their engineering
+              systems. The scope is predetermined based on the design stage of
+              the project as well as technical requirements.
+            </SectionHeading>
+            <div
+              data-reveal
+              className="rich-text rich-text--boxed mt-8"
+              dangerouslySetInnerHTML={{ __html: ENGINEERING_HTML }}
+            />
           </section>
-
-          {/* ── Design (bento) ──────────────────────────────────────────── */}
+          {/* ── Design (rich text) ─────────────────────────────────────── */}
           <section
             id="design"
             className="py-16 border-t border-gray-100 scroll-mt-20"
@@ -668,66 +518,11 @@ export default function AllServicesPage({
               interiors and sites.
             </SectionHeading>
 
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[180px] gap-3">
-              {DESIGN.map((d, i) => {
-                const wide = i === 0 || i === 4
-                return d.image ? (
-                  <article
-                    key={d.title}
-                    data-reveal="zoom"
-                    style={{ "--reveal-delay": `${(i % 4) * 70}ms` } as React.CSSProperties}
-                    className={`group relative overflow-hidden ${wide ? "sm:col-span-2 sm:row-span-2" : "sm:row-span-2"}`}
-                  >
-                    <img
-                      src={d.image}
-                      alt={d.title}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 p-6">
-                      <h3
-                        className="text-[22px] font-bold text-white"
-                        style={DISPLAY}
-                      >
-                        {d.title}
-                      </h3>
-                      <p
-                        className="text-[13px] text-white/75 leading-relaxed mt-1 max-w-sm"
-                        style={BODY}
-                      >
-                        {d.body}
-                      </p>
-                    </div>
-                  </article>
-                ) : (
-                  <article
-                    key={d.title}
-                    data-reveal="zoom"
-                    style={{ "--reveal-delay": `${(i % 4) * 70}ms` } as React.CSSProperties}
-                    className="group flex flex-col justify-between p-6 bg-[#f6f5f3] hover:bg-brand-red transition-colors duration-300"
-                  >
-                    <span
-                      className="w-8 h-0.5 bg-brand-red group-hover:bg-white transition-colors"
-                    />
-                    <div>
-                      <h3
-                        className="text-[18px] font-bold text-brand-dark group-hover:text-white transition-colors"
-                        style={DISPLAY}
-                      >
-                        {d.title}
-                      </h3>
-                      <p
-                        className="text-[12.5px] text-gray-500 group-hover:text-white/85 leading-relaxed mt-1 transition-colors"
-                        style={BODY}
-                      >
-                        {d.body}
-                      </p>
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
+            <div
+              data-reveal
+              className="rich-text mt-8"
+              dangerouslySetInnerHTML={{ __html: DESIGN_HTML }}
+            />
           </section>
 
           {/* ── VDC (connected nodes) ───────────────────────────────────── */}

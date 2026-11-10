@@ -220,3 +220,92 @@ button:disabled {
     animation-delay: 0ms !important;
   }
 }
+
+/* ─── Rich text (HTML editor content) ─────────────────────────────────────── */
+
+.rich-text {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6b7280;
+}
+
+.rich-text p {
+  margin-bottom: 1rem;
+}
+
+.rich-text ul,
+.rich-text ol {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.rich-text ul li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.rich-text ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--color-brand-red);
+}
+
+.rich-text ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+
+.rich-text strong {
+  font-weight: 600;
+  color: var(--color-brand-dark);
+}
+
+.rich-text a {
+  color: var(--color-brand-red);
+  text-decoration: underline;
+}
+
+/* Variant: editor list rendered as a two-column grid of boxed items, with the
+   leading <strong> label on its own line. Works on plain <ul><li> markup. */
+.rich-text--boxed ul {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .rich-text--boxed ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rich-text--boxed ul li {
+  padding: 1rem 1.25rem;
+  background: #f6f5f3;
+  border-left: 3px solid var(--color-brand-red);
+  font-size: 13px;
+  line-height: 1.6;
+  transition: background-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.rich-text--boxed ul li:hover {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.rich-text--boxed ul li::before {
+  display: none;
+}
+
+.rich-text--boxed ul li strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: 'Barlow', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
