@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import AllServicesPage from "./AllServicesPage"
 import ArchitecturalBimPage from "./ArchitecturalBimPage"
 import ServiceDetailPage from "./ServiceDetailPage"
 import { useScrollReveal } from "./useScrollReveal"
@@ -2143,6 +2144,7 @@ const ROUTES = {
   listing: "",
   bim: "bim-services",
   architectural: "architectural-bim-services",
+  services: "our-services",
 } as const
 
 type Route = keyof typeof ROUTES
@@ -2190,7 +2192,13 @@ export default function App() {
         onLogoClick={() => navigate("listing")}
         activePage={route === "listing" ? "listing" : "detail"}
       />
-      {route === "architectural" ? (
+      {route === "services" ? (
+        <AllServicesPage
+          onBackToServices={() => navigate("listing")}
+          onOpenArchitectural={() => navigate("architectural")}
+          onOpenBim={() => navigate("bim")}
+        />
+      ) : route === "architectural" ? (
         <ArchitecturalBimPage
           onBackToServices={() => navigate("listing")}
           onBackToBim={() => navigate("bim")}
