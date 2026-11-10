@@ -640,23 +640,15 @@ export default function AllServicesPage({
               We support projects across a broad range of building and
               infrastructure sectors.
             </SectionHeading>
-            <ul className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6">
-              {INDUSTRIES.map((ind, i) => (
+            <ul data-reveal className="mt-8 flex flex-wrap gap-2.5">
+              {INDUSTRIES.map((ind) => (
                 <li
                   key={ind}
-                  data-reveal
-                  style={{ "--reveal-delay": `${(i % 4) * 50}ms` } as React.CSSProperties}
-                  className="group flex items-center justify-between gap-2 py-3.5 border-b border-gray-200 hover:border-brand-red transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f6f5f3] border border-gray-200 text-[13px] font-medium text-brand-dark"
+                  style={BODY}
                 >
-                  <span
-                    className="text-[14px] font-semibold text-brand-dark group-hover:text-brand-red transition-colors"
-                    style={DISPLAY}
-                  >
-                    {ind}
-                  </span>
-                  <span className="text-gray-300 group-hover:text-brand-red group-hover:translate-x-0.5 transition-all">
-                    <Arrow />
-                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                  {ind}
                 </li>
               ))}
             </ul>
